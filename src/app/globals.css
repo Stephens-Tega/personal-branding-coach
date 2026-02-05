@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #FFF5E1; /* Cream */
   --foreground: #171717;
+  --brand-purple: #510C66;
+  --brand-yellow: #F8D51C;
+  --brand-cream: #FFF5E1;
 }
 
 @theme inline {
@@ -24,3 +27,51 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Brand utility classes */
+.bg-brand-purple { background-color: var(--brand-purple); }
+.text-brand-purple { color: var(--brand-purple); }
+.bg-brand-yellow { background-color: var(--brand-yellow); }
+.text-brand-yellow { color: var(--brand-yellow); }
+.bg-brand-cream { background-color: var(--brand-cream); }
+.brand-ring { box-shadow: 0 6px 18px rgba(81,12,102,0.18); }
+
+/* Simple responsive container used by landing */
+.landing-container { max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+/* Email input */
+.input-email {
+  appearance: none;
+  border: 1px solid rgba(16,24,40,0.06);
+  padding: 0.6rem 0.75rem;
+  border-radius: 9999px;
+  background: white;
+}
+
+/* Contact form inputs (match reference style) */
+.contact-input {
+  appearance: none;
+  border: 1px solid rgba(16,24,40,0.08);
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(16,24,40,0.04);
+}
+
+/* WhatsApp floating button */
+.whatsapp-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  display: inline-grid;
+  place-items: center;
+  background: #25D366;
+  color: white;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.18);
+  z-index: 60;
+}
+
+
