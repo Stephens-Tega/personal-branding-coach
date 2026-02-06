@@ -21,10 +21,10 @@ export default function Hero({ waNumber }: HeroProps) {
               That doesn't mean you're failing, it means you're out of alignment.
             </p>
             <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
-              I'm <span className="font-bold text-brand-purple">A. Uju Ruth Stevens</span>, a Women's Identity & Clarity Coach.
+              I am <span className="font-bold text-brand-purple">Uju Ruth Stevens</span>, a Women's Identity & Clarity Coach.
             </p>
             <p className="text-lg text-zinc-700 mb-8 leading-relaxed">
-              I help women in transitioning and rediscovering their identity and rebuild their lives, relationships, and wealth within purpose, for legacy and generational impact.
+              I help women in transition and rediscovering their identity and rebuild their lives, relationships, and wealth within purpose, for legacy and generational impact.
             </p>
             <a href="#clarity" className="bg-brand-purple text-white px-8 py-4 rounded-lg font-semibold hover:bg-opacity-90 transition inline-block">
               Start with clarity

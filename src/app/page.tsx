@@ -17,6 +17,7 @@ const waNumber = "2348062501417";
 export default function Home() {
   return (
     <div className="min-h-screen bg-brand-cream text-black antialiased flex flex-col">
+
       {/* Header */}
       <Header waNumber={waNumber} />
 

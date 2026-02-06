@@ -18,5 +18,12 @@
     "message": "Mama is the email working ?",
     "createdAt": "2026-02-05T10:06:44.098Z",
     "emailSent": true
+  },
+  {
+    "name": "Tega Stephens",
+    "email": "tfstephens2005@gmail.com",
+    "message": "Good morning ma.",
+    "createdAt": "2026-02-06T09:36:25.835Z",
+    "emailSent": true
   }
 ]

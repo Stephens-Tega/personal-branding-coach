@@ -5,14 +5,20 @@ export default function ClarityBlueprint() {
     <section id="clarity" className="w-full py-20 px-6 bg-linear-to-r from-brand-purple to-purple-700">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl font-bold text-white mb-8 text-center">HERE'S MY GIFT FOR YOU:</h2>
-        
-        <h3 className="text-3xl font-bold text-brand-yellow mb-12 text-center">
+
+        <h3 className="text-3xl font-bold text-white drop-shadow-md mb-12 text-center">
           The Clarity Blueprint: A Step-by-Step Guide to Identity, Purpose, and Meaningful Living
         </h3>
-        
+
         <p className="text-lg text-white text-center mb-8">
           A free guided resource created to help you:
         </p>
+
+        {/* Horizontal images */}
+        <div className="flex items-center justify-center gap-4 mb-8 overflow-x-auto py-2">
+          <img src="/images/WhatsApp%20Image%202026-02-05%20at%2012.18.52%20PM.jpeg" alt="gift-1" className="h-40 w-auto object-contain rounded shadow-md" />
+          <img src="/images/WhatsApp%20Image%202026-02-05%20at%2012.18.53%20PM.jpeg" alt="gift-2" className="h-40 w-auto object-contain rounded shadow-md" />
+        </div>
         
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="bg-white bg-opacity-10 backdrop-blur rounded-xl p-8 border border-white border-opacity-20">

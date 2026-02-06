@@ -19,12 +19,12 @@ export default function WorkWithMe() {
           </div>
           
           {/* BrandHer Program */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition border-t-4 border-brand-yellow">
+          <div id="work" className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition border-t-4 border-brand-yellow">
             <h3 className="text-2xl font-bold text-brand-purple mb-4">BrandHer Home Mentorship</h3>
             <p className="text-zinc-700 mb-6">
               A signature coaching journey (group or one-on-one) where I walk women back to who they are and help them build legacy-rooted lives and brands.
             </p>
-            <a href="#clarity" className="w-full inline-block text-center bg-brand-purple text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+            <a href={`https://wa.me/2348062501417?text=Hello%20I%20am%20interested%20in%20the%20BrandHer%20program`} target="_blank" rel="noopener noreferrer" className="w-full inline-block text-center bg-brand-purple text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
               Learn More
             </a>
           </div>
