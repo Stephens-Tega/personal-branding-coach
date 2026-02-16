@@ -15,9 +15,9 @@ export default function ClarityBlueprint() {
         </p>
 
         {/* Horizontal images - centered with balanced spacing */}
-        <div className="flex items-center justify-center gap-6 mb-8 py-2">
-          <img src="/images/WhatsApp%20Image%202026-02-05%20at%2012.18.52%20PM.jpeg" alt="gift-1" className="h-48 w-auto object-cover rounded shadow-md shrink-0" loading="lazy" />
-          <img src="/images/WhatsApp%20Image%202026-02-05%20at%2012.18.53%20PM.jpeg" alt="gift-2" className="h-48 w-auto object-cover rounded shadow-md shrink-0" loading="lazy" />
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8 py-2">
+          <img src="/images/WhatsApp%20Image%202026-02-05%20at%2012.18.52%20PM.jpeg" alt="gift-1" className="h-32 md:h-48 w-auto object-cover rounded shadow-md shrink-0" loading="lazy" />
+          <img src="/images/WhatsApp%20Image%202026-02-05%20at%2012.18.53%20PM.jpeg" alt="gift-2" className="h-32 md:h-48 w-auto object-cover rounded shadow-md shrink-0" loading="lazy" />
         </div>
         
         <div className="grid md:grid-cols-3 gap-8 mb-12">

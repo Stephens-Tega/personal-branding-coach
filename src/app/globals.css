@@ -67,8 +67,8 @@ body {
 /* WhatsApp floating button */
 .whatsapp-fab {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: 16px;
+  bottom: 80px;
   width: 56px;
   height: 56px;
   border-radius: 9999px;
@@ -76,8 +76,8 @@ body {
   place-items: center;
   background: #25D366;
   color: white;
-  box-shadow: 0 8px 24px rgba(37,211,102,0.18);
   z-index: 60;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.18);
 }
 
 
