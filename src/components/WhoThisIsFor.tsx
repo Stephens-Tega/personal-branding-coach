@@ -2,7 +2,7 @@
 
 export default function WhoThisIsFor() {
   return (
-    <section className="w-full py-20 px-6 bg-brand-cream">
+    <section className="w-full py-20 px-6 bg-brand-cream" data-aos="fade-up">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl font-bold text-brand-purple mb-12 text-center">WHO THIS IS FOR</h2>
         

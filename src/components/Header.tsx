@@ -10,7 +10,7 @@ export default function Header({ waNumber }: { waNumber: string }) {
     <header className="bg-white/95 backdrop-blur-sm shadow-sm py-4 sticky top-0 z-40">
       <div className="landing-container px-6 max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="h-10 w-10 rounded-md bg-brand-purple flex items-center justify-center text-white font-bold">Cs</div>
+          <img src="/images/1000148404.jpg.jpeg" alt="Logo" className="h-10 w-10 rounded-md object-cover" />
           <div>
             <div className="font-semibold">Women's Identity & Clarity Coach</div>
             <div className="text-xs text-zinc-500">Clarity • Identity • Legacy</div>

@@ -2,7 +2,7 @@
 
 export default function SocialProofs() {
   return (
-    <section className="w-full py-20 px-6 bg-white">
+    <section className="w-full py-20 px-6 bg-white" data-aos="fade-up">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl font-bold text-brand-purple mb-12 text-center">SOCIAL PROOFS</h2>
         
@@ -16,7 +16,7 @@ export default function SocialProofs() {
               <div className="w-full h-80 overflow-hidden rounded-t-2xl bg-zinc-300">
                 <picture className="w-full h-full block">
                   <source srcSet={`/images/testimonial-${index}.jpg`} type="image/jpeg" />
-                  <img src={`/images/testimonial-${index}.svg`} alt={`Testimonial ${index}`} className="w-full h-full" />
+                  <img src={`/images/testimonial-${index}.svg`} alt={`Testimonial ${index}`} className="w-full h-full" loading="lazy" />
                 </picture>
               </div>
               <div className="p-6">

@@ -2,7 +2,7 @@
 
 export default function WorkWithMe() {
   return (
-    <section className="w-full py-20 px-6 bg-brand-cream">
+    <section className="w-full py-20 px-6 bg-brand-cream" data-aos="fade-up">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl font-bold text-brand-purple mb-16 text-center">WAYS TO WORK WITH ME</h2>
         
@@ -39,7 +39,7 @@ export default function WorkWithMe() {
               href="https://chat.whatsapp.com/JuvcuZjNA5LGuldgI98u1w?mode=gi_t"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-block text-center bg-brand-purple text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition"
+              className="w-full inline-block text-center bg-brand-purple text-white py-3 md:py-4 rounded-lg font-semibold hover:bg-opacity-90 transition min-h-11"
             >
               Join Community
             </a>

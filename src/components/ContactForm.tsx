@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SocialLinks from "./SocialLinks";
+import Spinner from "./Spinner";
 
 export default function ContactForm({ waNumber }: { waNumber: string }) {
   const [name, setName] = useState("");
@@ -9,11 +10,37 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
   const [emailStatus, setEmailStatus] = useState<null | { emailed: boolean; error?: string }>(null);
+
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const validateField = (field: string, value: string) => {
+    const newErrors = { ...errors };
+    if (field === "name") {
+      if (!value.trim()) newErrors.name = "Name is required";
+      else if (value.trim().length < 2) newErrors.name = "Name must be at least 2 characters";
+      else delete newErrors.name;
+    } else if (field === "email") {
+      if (!value.trim()) newErrors.email = "Email is required";
+      else if (!validateEmail(value)) newErrors.email = "Please enter a valid email";
+      else delete newErrors.email;
+    } else if (field === "message") {
+      if (!value.trim()) newErrors.message = "Message is required";
+      else if (value.trim().length < 10) newErrors.message = "Message must be at least 10 characters";
+      else delete newErrors.message;
+    }
+    setErrors(newErrors);
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name || !email || !message) return alert("Please fill all fields.");
+    validateField("name", name);
+    validateField("email", email);
+    validateField("message", message);
+
+    if (Object.keys(errors).length > 0 || !name || !email || !message) return;
+
     setSubmitting(true);
     try {
       const res = await fetch('/api/contact', {
@@ -28,16 +55,17 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
       setName('');
       setEmail('');
       setMessage('');
-      setTimeout(() => setSubmitted(false), 3000);
+      setErrors({});
+      setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      alert('There was an error submitting the form. Please try again.');
+      setEmailStatus({ emailed: false, error: 'Failed to submit. Please try again.' });
     } finally {
       setSubmitting(false);
     }
   }
 
   return (
-    <section id="contact" className="w-full">
+    <section id="contact" className="w-full" data-aos="fade-up">
       <div className="max-w-3xl mx-auto">
       <div className="bg-white rounded-2xl p-8 shadow-lg border border-zinc-100">
         <div className="mb-6">
@@ -54,10 +82,18 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
                 type="text"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  validateField("name", e.target.value);
+                }}
                 placeholder="Your Name"
-                className="w-full px-4 py-3 rounded-lg border border-zinc-200 bg-zinc-50 text-black placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-purple focus:bg-white transition"
+                className={`w-full px-4 py-3 md:py-2 rounded-lg border text-black placeholder-zinc-500 focus:outline-none focus:ring-2 transition ${
+                  errors.name
+                    ? "border-red-300 bg-red-50 focus:ring-red-500"
+                    : "border-zinc-200 bg-zinc-50 focus:ring-brand-purple focus:bg-white"
+                }`}
               />
+              {errors.name && <p className="text-sm text-red-600 mt-1">{errors.name}</p>}
             </div>
 
             <div>
@@ -67,10 +103,18 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
                 type="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  validateField("email", e.target.value);
+                }}
                 placeholder="Your Email"
-                className="w-full px-4 py-3 rounded-lg border border-zinc-200 bg-zinc-50 text-black placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-purple focus:bg-white transition"
+                className={`w-full px-4 py-3 md:py-2 rounded-lg border text-black placeholder-zinc-500 focus:outline-none focus:ring-2 transition ${
+                  errors.email
+                    ? "border-red-300 bg-red-50 focus:ring-red-500"
+                    : "border-zinc-200 bg-zinc-50 focus:ring-brand-purple focus:bg-white"
+                }`}
               />
+              {errors.email && <p className="text-sm text-red-600 mt-1">{errors.email}</p>}
             </div>
           </div>
 
@@ -80,20 +124,35 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
               id="message"
               required
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={(e) => {
+                setMessage(e.target.value);
+                validateField("message", e.target.value);
+              }}
               placeholder="Your Message"
               rows={6}
-              className="w-full px-4 py-3 rounded-lg border border-zinc-200 bg-zinc-50 text-black placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-purple focus:bg-white transition resize-none"
+              className={`w-full px-4 py-3 md:py-2 rounded-lg border text-black placeholder-zinc-500 focus:outline-none focus:ring-2 transition resize-none ${
+                errors.message
+                  ? "border-red-300 bg-red-50 focus:ring-red-500"
+                  : "border-zinc-200 bg-zinc-50 focus:ring-brand-purple focus:bg-white"
+              }`}
             />
+            {errors.message && <p className="text-sm text-red-600 mt-1">{errors.message}</p>}
           </div>
 
           <div className="pt-2">
             <button
               type="submit"
               disabled={submitting}
-              className="w-full px-6 py-3 rounded-lg bg-brand-purple text-white font-semibold hover:bg-brand-purple/90 disabled:opacity-60 transition"
+              className="w-full min-h-11 px-6 py-3 rounded-lg bg-brand-purple text-white font-semibold hover:bg-brand-purple/90 disabled:opacity-60 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
             >
-              {submitting ? "Sending..." : "Send Message"}
+              {submitting ? (
+                <>
+                  <Spinner size="sm" />
+                  Sending...
+                </>
+              ) : (
+                "Send Message"
+              )}
             </button>
           </div>
           <div className="mt-4">
@@ -109,14 +168,26 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
           </div>
         </form>
         {submitted && emailStatus?.emailed && (
-          <div className="mt-4 p-4 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm">
-            ✓ Message sent! I'll get back to you soon.
+          <div className="mt-4 p-4 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm animate-in fade-in slide-in-from-top duration-500">
+            <div className="flex items-start gap-3">
+              <span className="text-lg">✓</span>
+              <div>
+                <p className="font-semibold">Message sent successfully!</p>
+                <p className="text-xs mt-1">I'll get back to you soon.</p>
+              </div>
+            </div>
           </div>
         )}
 
         {submitted && emailStatus && !emailStatus.emailed && (
-          <div className="mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm">
-            ⚠ Message saved but email could not be sent. The submission is stored locally. {emailStatus.error ? `Error: ${emailStatus.error}` : ''}
+          <div className="mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm animate-in fade-in slide-in-from-top duration-500">
+            <div className="flex items-start gap-3">
+              <span className="text-lg">⚠</span>
+              <div>
+                <p className="font-semibold">Message saved locally</p>
+                <p className="text-xs mt-1">Email delivery is temporarily unavailable, but your message has been stored.</p>
+              </div>
+            </div>
           </div>
         )}
       </div>

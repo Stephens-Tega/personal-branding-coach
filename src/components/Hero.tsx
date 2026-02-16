@@ -8,7 +8,7 @@ interface HeroProps {
 
 export default function Hero({ waNumber }: HeroProps) {
   return (
-    <section className="w-full py-20 px-6 bg-linear-to-br from-brand-cream via-white to-brand-cream">
+    <section className="w-full py-20 px-6 bg-linear-to-br from-brand-cream via-white to-brand-cream" data-aos="fade-up">
       <div className="max-w-7xl mx-auto">
         {/* Main Hero Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
@@ -24,9 +24,9 @@ export default function Hero({ waNumber }: HeroProps) {
               I am <span className="font-bold text-brand-purple">Uju Ruth Stevens</span>, a Women's Identity & Clarity Coach.
             </p>
             <p className="text-lg text-zinc-700 mb-8 leading-relaxed">
-              I help women in transition and rediscovering their identity and rebuild their lives, relationships, and wealth within purpose, for legacy and generational impact.
+              I help women in transition rediscover their identity and rebuild their lives, relationships, and wealth within purpose, for legacy and generational impact.
             </p>
-            <a href="#clarity" className="bg-brand-purple text-white px-8 py-4 rounded-lg font-semibold hover:bg-opacity-90 transition inline-block">
+            <a href="#clarity" className="bg-brand-purple text-white px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-opacity-90 transition inline-block min-h-11 flex items-center">
               Start with clarity
             </a>
           </div>
@@ -68,6 +68,7 @@ function Slider() {
             src={`/images/${src}`}
             alt={`Slide ${i + 1}`}
             className="max-w-full max-h-full"
+            loading="lazy"
           />
         </div>
       ))}
@@ -76,7 +77,7 @@ function Slider() {
         <button
           aria-label="Previous slide"
           onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}
-          className="bg-white/80 p-2 rounded-full shadow hover:bg-white"
+          className="bg-white/80 p-2 md:p-3 rounded-full shadow hover:bg-white transition min-h-11 min-w-11 flex items-center justify-center"
         >
           ‹
         </button>
@@ -86,7 +87,7 @@ function Slider() {
         <button
           aria-label="Next slide"
           onClick={() => setIndex((i) => (i + 1) % images.length)}
-          className="bg-white/80 p-2 rounded-full shadow hover:bg-white"
+          className="bg-white/80 p-2 md:p-3 rounded-full shadow hover:bg-white transition min-h-11 min-w-11 flex items-center justify-center"
         >
           ›
         </button>

@@ -25,5 +25,19 @@
     "message": "Good morning ma.",
     "createdAt": "2026-02-06T09:36:25.835Z",
     "emailSent": true
+  },
+  {
+    "name": "Tega Stephens",
+    "email": "tfstephens2005@gmail.com",
+    "message": "I'm just glad that the message got sent.",
+    "createdAt": "2026-02-06T10:09:41.611Z",
+    "emailSent": true
+  },
+  {
+    "name": "Tega Stephens",
+    "email": "tfstephens2005@gmail.com",
+    "message": "Good afternoon ma, don't mind me, I'm just testing the email again.",
+    "createdAt": "2026-02-16T14:35:14.626Z",
+    "emailSent": true
   }
 ]

@@ -5,6 +5,7 @@ export default function MyStory() {
     <section
       className="w-full py-20 px-6 bg-cover bg-center"
       style={{ backgroundImage: "url('/images/1000148420.jpg.jpeg')" }}
+      data-aos="fade-left"
     >
       <div className="max-w-5xl mx-auto">
         <div className="bg-white/80 p-8 rounded">

@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="landing-container px-6 max-w-7xl mx-auto py-12 grid md:grid-cols-3 gap-8">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-10 w-10 rounded-md bg-brand-purple flex items-center justify-center text-white font-bold">Cs</div>
+            <img src="/images/1000148404.jpg.jpeg" alt="Logo" className="h-10 w-10 rounded-md object-cover" />
             <div>
               <div className="font-semibold">Women's Identity & Clarity Coach</div>
               <div className="text-sm text-zinc-600">Helping women rediscover identity, purpose, and clarity.</div>
