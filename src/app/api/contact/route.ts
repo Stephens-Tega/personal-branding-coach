@@ -19,14 +19,14 @@ export async function POST(req: Request) {
       const host = process.env.SMTP_HOST;
       const user = process.env.SMTP_USER;
       const pass = process.env.SMTP_PASS;
-      const port = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : undefined;
+      const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
       const secure = process.env.SMTP_SECURE === 'true';
 
       if (host && user && pass) {
         const transporter = nodemailer.createTransport({
           host,
-          port: port || 587,
-          secure: !!secure,
+          port,
+          secure,
           auth: { user, pass },
         });
 
