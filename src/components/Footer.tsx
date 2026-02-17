@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="text-center text-sm text-zinc-600 py-4">© {new Date().getFullYear()} Personal Branding Coach — All rights reserved.</div>
+      <div className="text-center text-sm text-zinc-600 py-4">© {new Date().getFullYear()} Women's Identity & Clarity Coach — All rights reserved.</div>
     </footer>
   );
 }

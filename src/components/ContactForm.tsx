@@ -180,12 +180,12 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
         )}
 
         {submitted && emailStatus && !emailStatus.emailed && (
-          <div className="mt-4 p-4 rounded-lg bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm animate-in fade-in slide-in-from-top duration-500">
+          <div className="mt-4 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm animate-in fade-in slide-in-from-top duration-500">
             <div className="flex items-start gap-3">
-              <span className="text-lg">⚠</span>
+              <span className="text-lg">✕</span>
               <div>
-                <p className="font-semibold">Message saved locally</p>
-                <p className="text-xs mt-1">Email delivery is temporarily unavailable, but your message has been stored.</p>
+                <p className="font-semibold">Email delivery failed</p>
+                <p className="text-xs mt-1">Please try again or contact me directly on WhatsApp for immediate assistance.</p>
               </div>
             </div>
           </div>
