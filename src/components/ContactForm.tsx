@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import SocialLinks from "./SocialLinks";
 import Spinner from "./Spinner";
 
@@ -12,8 +12,18 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
   const [emailStatus, setEmailStatus] = useState<null | { emailed: boolean; error?: string }>(null);
+  const successRef = useRef<HTMLDivElement>(null);
 
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  // Auto-scroll to success message
+  useEffect(() => {
+    if (submitted && successRef.current) {
+      setTimeout(() => {
+        successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  }, [submitted]);
 
   const validateField = (field: string, value: string) => {
     const newErrors = { ...errors };
@@ -56,9 +66,11 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
       setEmail('');
       setMessage('');
       setErrors({});
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 8000);
     } catch (err) {
+      setSubmitted(true);
       setEmailStatus({ emailed: false, error: 'Failed to submit. Please try again.' });
+      setTimeout(() => setSubmitted(false), 8000);
     } finally {
       setSubmitting(false);
     }
@@ -168,24 +180,24 @@ export default function ContactForm({ waNumber }: { waNumber: string }) {
           </div>
         </form>
         {submitted && emailStatus?.emailed && (
-          <div className="mt-4 p-4 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm animate-in fade-in slide-in-from-top duration-500">
+          <div ref={successRef} className="mt-4 p-5 rounded-lg bg-green-50 border-2 border-green-300 text-green-700 text-sm animate-in fade-in slide-in-from-bottom duration-500 shadow-md">
             <div className="flex items-start gap-3">
-              <span className="text-lg">✓</span>
+              <span className="text-lg font-bold">✓</span>
               <div>
-                <p className="font-semibold">Message sent successfully!</p>
-                <p className="text-xs mt-1">I'll get back to you soon.</p>
+                <p className="font-bold text-base">Message sent successfully!</p>
+                <p className="text-xs mt-2">A confirmation email has been sent to <strong>{email}</strong>. I'll get back to you soon.</p>
               </div>
             </div>
           </div>
         )}
 
         {submitted && emailStatus && !emailStatus.emailed && (
-          <div className="mt-4 p-4 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm animate-in fade-in slide-in-from-top duration-500">
+          <div ref={successRef} className="mt-4 p-5 rounded-lg bg-red-50 border-2 border-red-300 text-red-700 text-sm animate-in fade-in slide-in-from-bottom duration-500 shadow-md">
             <div className="flex items-start gap-3">
-              <span className="text-lg">✕</span>
+              <span className="text-lg font-bold">✕</span>
               <div>
-                <p className="font-semibold">Email delivery failed</p>
-                <p className="text-xs mt-1">Please try again or contact me directly on WhatsApp for immediate assistance.</p>
+                <p className="font-bold text-base">Email delivery failed</p>
+                <p className="text-xs mt-2">Please try again or contact me directly on WhatsApp for immediate assistance.</p>
               </div>
             </div>
           </div>

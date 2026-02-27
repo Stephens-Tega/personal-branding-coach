@@ -39,7 +39,25 @@ export async function POST(req: Request) {
           html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><hr/><p>${message.replace(/\n/g, '<br/>')}</p>`,
         });
 
-        if (mailResult) emailSent = true;
+        // Check if email was successfully sent (messageId indicates success)
+        if (mailResult && mailResult.messageId) {
+          emailSent = true;
+
+          // Send confirmation email to the user
+          try {
+            await transporter.sendMail({
+              from: process.env.SMTP_FROM || user,
+              to: email,
+              subject: 'We received your message',
+              text: `Hi ${name},\n\nThank you for reaching out! I've received your message and will get back to you as soon as possible.\n\nBest regards,\nUju Ruth Stevens\nWomen's Identity & Clarity Coach`,
+              html: `<p>Hi ${name},</p><p>Thank you for reaching out! I've received your message and will get back to you as soon as possible.</p><p>Best regards,<br/><strong>Uju Ruth Stevens</strong><br/>Women's Identity & Clarity Coach</p>`,
+            });
+          } catch (confirmErr) {
+            // Confirmation email failed, but main email was sent - don't treat as error
+            // eslint-disable-next-line no-console
+            console.warn('Confirmation email failed:', confirmErr);
+          }
+        }
       }
     } catch (mailErr) {
       emailError = String(mailErr);
