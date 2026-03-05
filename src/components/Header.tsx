@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import WhatsAppIcon from "./WhatsAppIcon";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header({ waNumber }: { waNumber: string }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,6 +38,8 @@ export default function Header({ waNumber }: { waNumber: string }) {
             <WhatsAppIcon size={18} />
             <span className="hidden sm:inline">Contact</span>
           </a>
+
+          <ThemeToggle />
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

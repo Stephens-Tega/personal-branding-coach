@@ -11,15 +11,19 @@ import ClosingCTA from "../components/ClosingCTA";
 import Footer from "../components/Footer";
 import WhatsAppFab from "../components/WhatsAppFab";
 import ContactForm from "../components/ContactForm";
+import AOSProvider from "../components/AOSProvider";   
 
 const waNumber = "2348062501417";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-brand-cream text-black antialiased flex flex-col">
+    <div className="min-h-screen dark:bg-black bg-brand-cream text-black antialiased flex flex-col">
 
       {/* Header */}
       <Header waNumber={waNumber} />
+
+      {/* Theme & AOS Providers */}
+      <AOSProvider />
 
       {/* Hero Section */}
       <Hero waNumber={waNumber} />

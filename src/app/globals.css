@@ -80,4 +80,13 @@ body {
   box-shadow: 0 8px 24px rgba(37,211,102,0.18);
 }
 
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(to right, #510C66, #510C66, #F8D51C);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 

@@ -8,16 +8,19 @@ interface HeroProps {
 
 export default function Hero({ waNumber }: HeroProps) {
   return (
-    <section className="w-full py-20 px-6 bg-linear-to-br from-brand-cream via-white to-brand-cream" data-aos="fade-up">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full py-20 px-6 bg-linear-to-br from-brand-cream via-purple-100 to-brand-yellow/20 relative overflow-hidden" data-aos="fade-up">
+      {/* Gradient overlay elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-yellow/10 rounded-full blur-3xl -z-10"></div>
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Main Hero Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left: Text Content */}
           <div>
-            <h1 className="text-5xl lg:text-6xl font-bold text-brand-purple mb-6 leading-tight">
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight gradient-text bg-gradient-to-r from-brand-purple/20 via-brand-purple/30 to-brand-yellow/20 px-6 py-4 rounded-xl backdrop-blur-sm">
               You can look successful and still feel lost.
             </h1>
-            <p className="text-xl text-zinc-700 mb-4 font-medium">
+            <p className="text-xl text-zinc-700 mb-4 font-medium bg-gradient-to-r from-brand-yellow/10 via-brand-purple/8 to-brand-yellow/10 px-6 py-4 rounded-xl backdrop-blur-sm">
               That doesn't mean you're failing, it means you're out of alignment.
             </p>
             <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
