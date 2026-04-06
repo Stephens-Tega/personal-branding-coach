@@ -34,16 +34,16 @@ const iconMap: Record<SocialLink["icon"], ReactNode> = {
 export default function SocialLinks({ links, horizontal }: { links: SocialLink[]; horizontal?: boolean }) {
   if (horizontal) {
     return (
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
         {links.map((link) => (
           <a
             key={link.name}
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-zinc-700 hover:text-brand-purple transition"
+            className="motion-button flex items-center gap-2 text-sm text-zinc-700 transition hover:text-brand-purple dark:text-zinc-300 dark:hover:text-brand-yellow"
           >
-            <span className="text-brand-purple">{iconMap[link.icon]}</span>
+            <span className="text-brand-purple dark:text-brand-yellow">{iconMap[link.icon]}</span>
             <span className="hidden sm:inline">{link.name}</span>
           </a>
         ))}
@@ -59,9 +59,9 @@ export default function SocialLinks({ links, horizontal }: { links: SocialLink[]
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 hover:border-zinc-300 transition text-zinc-700 font-medium"
+          className="motion-card flex items-center gap-3 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 font-medium text-zinc-700 transition hover:border-brand-purple/20 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:hover:border-brand-yellow/30 dark:hover:bg-white/10"
         >
-          <span className="text-brand-purple">{iconMap[link.icon]}</span>
+          <span className="text-brand-purple dark:text-brand-yellow">{iconMap[link.icon]}</span>
           <span>{link.name}</span>
         </a>
       ))}

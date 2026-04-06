@@ -1,42 +1,67 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
-interface HeroProps {
-  waNumber: string;
-}
-
-export default function Hero({ waNumber }: HeroProps) {
+export default function Hero() {
   return (
-    <section className="w-full py-20 px-6 bg-linear-to-br from-brand-cream via-purple-100 to-brand-yellow/20 relative overflow-hidden" data-aos="fade-up">
-      {/* Gradient overlay elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-brand-purple/10 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-yellow/10 rounded-full blur-3xl -z-10"></div>
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Main Hero Section */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left: Text Content */}
+    <section
+      className="relative w-full overflow-hidden bg-linear-to-br from-brand-cream via-white to-brand-yellow/20 px-5 py-16 sm:px-6 sm:py-20 dark:bg-zinc-950"
+      data-aos="fade-up"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden dark:block dark:bg-linear-to-br dark:from-zinc-950 dark:via-zinc-950 dark:to-brand-purple/15"
+      />
+      <div
+        aria-hidden="true"
+        className="gradient-orb pointer-events-none absolute -top-16 -left-12 h-80 w-80 rounded-full bg-brand-purple/12 blur-3xl dark:bg-brand-purple/20"
+      />
+      <div
+        aria-hidden="true"
+        className="gradient-orb gradient-orb-reverse pointer-events-none absolute right-0 bottom-0 h-72 w-72 rounded-full bg-brand-yellow/18 blur-3xl dark:bg-brand-yellow/10"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="mb-16 grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight gradient-text bg-gradient-to-r from-brand-purple/20 via-brand-purple/30 to-brand-yellow/20 px-6 py-4 rounded-xl backdrop-blur-sm">
-              You can look successful and still feel lost.
+            <h1 className="mb-6 max-w-2xl bg-linear-to-r from-brand-purple to-brand-yellow bg-clip-text text-4xl leading-tight font-bold text-transparent sm:text-5xl lg:text-6xl">
+              You can look successful and still feel{" "}
+              <span className="bg-linear-to-r from-brand-purple to-brand-yellow bg-clip-text text-transparent">
+                lost
+              </span>
+              .
             </h1>
-            <p className="text-xl text-zinc-700 mb-4 font-medium bg-gradient-to-r from-brand-yellow/10 via-brand-purple/8 to-brand-yellow/10 px-6 py-4 rounded-xl backdrop-blur-sm">
-              That doesn't mean you're failing, it means you're out of alignment.
+
+            <p className="mb-4 text-lg font-medium text-zinc-700 sm:text-xl dark:text-zinc-200">
+              That doesn&apos;t mean you&apos;re failing, it means you&apos;re
+              out of alignment.
             </p>
-            <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
-              I am <span className="font-bold text-brand-purple">Uju Ruth Stevens</span>, a Women's Identity & Clarity Coach.
+
+            <p className="mb-8 text-base leading-relaxed text-zinc-700 sm:text-lg dark:text-zinc-200">
+              I am{" "}
+              <span className="font-bold text-brand-purple dark:text-brand-yellow">
+                Uju Ruth Stevens
+              </span>
+              , a Women&apos;s Identity &amp; Clarity Coach.
             </p>
-            <p className="text-lg text-zinc-700 mb-8 leading-relaxed">
-              I help women in transition rediscover their identity and rebuild their lives, relationships, and wealth within purpose, for legacy and generational impact.
+
+            <p className="mb-8 text-base leading-relaxed text-zinc-700 sm:text-lg dark:text-zinc-200">
+              I help women in transition rediscover their identity and rebuild
+              their lives, relationships, and wealth within purpose, for legacy
+              and generational impact.
             </p>
-            <a href="#clarity" className="bg-brand-purple text-white px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-opacity-90 transition inline-block min-h-11 flex items-center">
+
+            <a
+              href="#clarity"
+              className="motion-button inline-block min-h-11 w-full rounded-lg bg-brand-purple px-8 py-3 text-center font-semibold text-white shadow-[0_16px_40px_rgba(81,12,102,0.18)] transition hover:bg-brand-purple/90 sm:w-auto md:py-4"
+            >
               Start with clarity
             </a>
           </div>
 
-          {/* Right: Image slider */}
           <div className="flex justify-center">
-            <div className="w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl relative">
+            <div className="motion-media relative w-full max-w-[18rem] overflow-hidden rounded-3xl shadow-2xl sm:max-w-sm">
               <Slider />
             </div>
           </div>
@@ -52,57 +77,91 @@ function Slider() {
     "1000148405.jpg.jpeg",
     "1000148407.jpg.jpeg",
   ];
-
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setIndex((i) => (i + 1) % images.length), 5000);
-    return () => clearInterval(t);
-  }, []);
+    const timer = setInterval(() => {
+      setIndex((currentIndex) => (currentIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [images.length]);
 
   return (
-    <div className="relative bg-black/5 h-72 sm:h-80 md:h-96 lg:h-112 overflow-hidden">
+    <div className="relative h-[21rem] overflow-hidden bg-black/5 dark:bg-white/5 sm:h-80 md:h-96 lg:h-112">
       {images.map((src, i) => (
         <div
-          key={i}
-          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out ${i === index ? "opacity-100" : "opacity-0"}`}
+          key={src}
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${i === index ? "opacity-100" : "opacity-0"}`}
         >
-          <img
-            src={`/images/${src}`}
-            alt={`Slide ${i + 1}`}
-            className="max-w-full max-h-full"
-            loading="lazy"
-          />
+          <div className="relative h-full w-full">
+            <Image
+              src={`/images/${src}`}
+              alt={`Portrait slide ${i + 1}`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 24rem"
+              className={`motion-image object-cover transition-transform duration-[1400ms] ease-out ${i === index ? "scale-100" : "scale-105"}`}
+              priority={i === 0}
+            />
+          </div>
         </div>
       ))}
 
-      <div className="absolute left-3 top-1/2 -translate-y-1/2">
+      <div className="absolute top-1/2 left-3 -translate-y-1/2">
         <button
           aria-label="Previous slide"
-          onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}
-          className="bg-white/80 p-2 md:p-3 rounded-full shadow hover:bg-white transition min-h-11 min-w-11 flex items-center justify-center"
+          onClick={() =>
+            setIndex((currentIndex) =>
+              (currentIndex - 1 + images.length) % images.length,
+            )
+          }
+          className="motion-button flex min-h-11 min-w-11 items-center justify-center rounded-full bg-white/80 p-2 text-black shadow transition hover:bg-white dark:bg-zinc-900/80 dark:text-white dark:hover:bg-zinc-700 md:p-3"
         >
-          ‹
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-5 w-5"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
         </button>
       </div>
 
-      <div className="absolute right-3 top-1/2 -translate-y-1/2">
+      <div className="absolute top-1/2 right-3 -translate-y-1/2">
         <button
           aria-label="Next slide"
-          onClick={() => setIndex((i) => (i + 1) % images.length)}
-          className="bg-white/80 p-2 md:p-3 rounded-full shadow hover:bg-white transition min-h-11 min-w-11 flex items-center justify-center"
+          onClick={() =>
+            setIndex((currentIndex) => (currentIndex + 1) % images.length)
+          }
+          className="motion-button flex min-h-11 min-w-11 items-center justify-center rounded-full bg-white/80 p-2 text-black shadow transition hover:bg-white dark:bg-zinc-900/80 dark:text-white dark:hover:bg-zinc-700 md:p-3"
         >
-          ›
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-5 w-5"
+          >
+            <path d="m9 6 6 6-6 6" />
+          </svg>
         </button>
       </div>
 
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-        {images.map((_, i) => (
+      <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
+        {images.map((image, i) => (
           <button
-            key={i}
+            key={image}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={`w-2 h-2 rounded-full ${i === index ? "bg-white" : "bg-white/60"}`}
+            className={`motion-button h-2 w-2 rounded-full ${i === index ? "bg-white dark:bg-zinc-200" : "bg-white/60 dark:bg-zinc-600"}`}
           />
         ))}
       </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import MyStory from "../components/MyStory";
@@ -11,46 +9,45 @@ import ClosingCTA from "../components/ClosingCTA";
 import Footer from "../components/Footer";
 import WhatsAppFab from "../components/WhatsAppFab";
 import ContactForm from "../components/ContactForm";
-import AOSProvider from "../components/AOSProvider";   
 
 const waNumber = "2348062501417";
 
 export default function Home() {
   return (
-    <div className="min-h-screen dark:bg-black bg-brand-cream text-black antialiased flex flex-col">
+    <>
+      <div className="page-enter flex min-h-screen flex-col text-foreground">
+        {/* Header */}
+        <Header waNumber={waNumber} />
 
-      {/* Header */}
-      <Header waNumber={waNumber} />
+        {/* Hero Section */}
+        <Hero />
 
-      {/* Theme & AOS Providers */}
-      <AOSProvider />
+        {/* My Story Section */}
+        <MyStory />
 
-      {/* Hero Section */}
-      <Hero waNumber={waNumber} />
+        {/* Who This Is For Section */}
+        <WhoThisIsFor />
 
-      {/* My Story Section */}
-      <MyStory />
+        {/* Social Proofs Section */}
+        <SocialProofs />
 
-      {/* Who This Is For Section */}
-      <WhoThisIsFor />
+        {/* Clarity Blueprint Section */}
+        <ClarityBlueprint />
 
-      {/* Social Proofs Section */}
-      <SocialProofs />
+        {/* Ways to Work With Me */}
+        <WorkWithMe />
 
-      {/* Clarity Blueprint Section */}
-      <ClarityBlueprint />
+        <ContactForm />
 
-      {/* Ways to Work With Me */}
-      <WorkWithMe />
+        {/* Closing CTA Section */}
+        <ClosingCTA waNumber={waNumber} />
 
-      <ContactForm waNumber={waNumber} />
+        {/* Footer */}
+        <Footer />
+      </div>
 
-      {/* Closing CTA Section */}
-      <ClosingCTA waNumber={waNumber} />
-
-      {/* Footer & WhatsApp FAB */}
-      <Footer />
+      {/* Floating WhatsApp FAB */}
       <WhatsAppFab waNumber={waNumber} />
-    </div>
+    </>
   );
 }

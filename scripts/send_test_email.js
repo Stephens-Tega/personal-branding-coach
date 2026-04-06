@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports */
 /*
   Test script to send a sample email.
   - If SMTP env vars are present it will use them.
@@ -26,7 +27,7 @@ try {
       if (!process.env[key]) process.env[key] = val;
     });
   }
-} catch (e) {
+} catch {
   // ignore
 }
 

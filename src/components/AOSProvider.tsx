@@ -6,12 +6,28 @@ import "aos/dist/aos.css";
 
 export default function AOSProvider() {
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
     AOS.init({
-      duration: 800,
-      easing: "ease-in-out",
+      duration: mediaQuery.matches ? 0 : 920,
+      delay: 0,
+      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
       once: true,
-      offset: 100,
+      mirror: false,
+      offset: 72,
+      anchorPlacement: "top-bottom",
+      disable: mediaQuery.matches,
     });
+
+    const handleMotionChange = () => {
+      AOS.refreshHard();
+    };
+
+    mediaQuery.addEventListener("change", handleMotionChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMotionChange);
+    };
   }, []);
 
   return null;

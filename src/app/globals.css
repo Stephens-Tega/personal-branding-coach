@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #FFF5E1; /* Cream */
@@ -6,40 +7,64 @@
   --brand-purple: #510C66;
   --brand-yellow: #F8D51C;
   --brand-cream: #FFF5E1;
+  --app-font-sans: "Segoe UI", Arial, Helvetica, sans-serif;
+  --app-font-mono: "Consolas", "Courier New", monospace;
+  --motion-ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --motion-duration-fast: 220ms;
+  --motion-duration-medium: 320ms;
+  --motion-duration-slow: 760ms;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-cream: var(--brand-cream);
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
 }
 
 /* Dark mode class override */
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  color-scheme: dark;
+  --background: #09070E;
+  --foreground: #F5EFF8;
+}
+
+html {
+  background-color: var(--background);
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--app-font-sans);
+  overflow-x: hidden;
+  transition:
+    background-color var(--motion-duration-fast) ease,
+    color var(--motion-duration-fast) ease;
+}
+
+.dark body {
+  background-image:
+    radial-gradient(circle at top, rgba(81, 12, 102, 0.24), transparent 34%),
+    linear-gradient(180deg, #120D19 0%, #0C0911 52%, #09070E 100%);
+}
+
+a {
+  transition:
+    color var(--motion-duration-fast) ease,
+    background-color var(--motion-duration-fast) ease,
+    border-color var(--motion-duration-fast) ease,
+    opacity var(--motion-duration-fast) ease,
+    box-shadow var(--motion-duration-fast) ease,
+    transform var(--motion-duration-fast) ease;
 }
 
 /* Brand utility classes */
-.bg-brand-purple { background-color: var(--brand-purple); }
-.text-brand-purple { color: var(--brand-purple); }
-.bg-brand-yellow { background-color: var(--brand-yellow); }
-.text-brand-yellow { color: var(--brand-yellow); }
-.bg-brand-cream { background-color: var(--brand-cream); }
 .brand-ring { box-shadow: 0 6px 18px rgba(81,12,102,0.18); }
 
 /* Simple responsive container used by landing */
@@ -67,10 +92,10 @@ body {
 /* WhatsApp floating button */
 .whatsapp-fab {
   position: fixed;
-  right: 16px;
-  bottom: 80px;
-  width: 56px;
-  height: 56px;
+  right: 14px;
+  bottom: 18px;
+  width: 52px;
+  height: 52px;
   border-radius: 9999px;
   display: inline-grid;
   place-items: center;
@@ -78,15 +103,172 @@ body {
   color: white;
   z-index: 60;
   box-shadow: 0 8px 24px rgba(37,211,102,0.18);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  text-decoration: none;
 }
 
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(to right, #510C66, #510C66, #F8D51C);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+.whatsapp-fab:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 12px 32px rgba(37,211,102,0.32);
 }
 
+.whatsapp-fab:active {
+  transform: scale(0.95);
+}
 
+.dark .whatsapp-fab {
+  box-shadow: 0 12px 32px rgba(37,211,102,0.28);
+}
+
+@media (min-width: 640px) {
+  .whatsapp-fab {
+    right: 16px;
+    bottom: 80px;
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.page-enter {
+  animation: page-enter var(--motion-duration-slow) var(--motion-ease-emphasized) both;
+}
+
+.motion-card {
+  will-change: transform, box-shadow;
+  transition:
+    transform var(--motion-duration-medium) var(--motion-ease-emphasized),
+    box-shadow var(--motion-duration-medium) var(--motion-ease-emphasized),
+    border-color var(--motion-duration-fast) ease,
+    background-color var(--motion-duration-fast) ease;
+}
+
+.motion-card:hover {
+  transform: translateY(-6px);
+}
+
+.motion-button {
+  will-change: transform, box-shadow;
+  transition:
+    transform var(--motion-duration-fast) var(--motion-ease-soft),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-soft),
+    background-color var(--motion-duration-fast) ease,
+    border-color var(--motion-duration-fast) ease,
+    color var(--motion-duration-fast) ease;
+}
+
+.motion-button:hover {
+  transform: translateY(-2px);
+}
+
+.motion-button:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.motion-media {
+  overflow: hidden;
+}
+
+.motion-image {
+  transform-origin: center;
+  transition: transform 1200ms var(--motion-ease-emphasized);
+  will-change: transform;
+}
+
+.motion-media:hover .motion-image {
+  transform: scale(1.045);
+}
+
+.gradient-orb {
+  animation: orb-float 14s ease-in-out infinite alternate;
+}
+
+.gradient-orb-reverse {
+  animation-direction: alternate-reverse;
+}
+
+[data-aos] {
+  will-change: transform, opacity, filter;
+  transition-timing-function: var(--motion-ease-emphasized) !important;
+  transition-property: opacity, transform, filter !important;
+}
+
+[data-aos="fade-up"] {
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  opacity: 0;
+  filter: blur(10px);
+}
+
+[data-aos="fade-up"].aos-animate {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  filter: blur(0);
+}
+
+[data-aos="fade-right"] {
+  transform: translate3d(-28px, 0, 0) scale(0.99);
+  opacity: 0;
+  filter: blur(10px);
+}
+
+[data-aos="fade-right"].aos-animate {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  filter: blur(0);
+}
+
+[data-aos="fade-left"] {
+  transform: translate3d(28px, 0, 0) scale(0.99);
+  opacity: 0;
+  filter: blur(10px);
+}
+
+[data-aos="fade-left"].aos-animate {
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
+  filter: blur(0);
+}
+
+@keyframes page-enter {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes orb-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(10px, -14px, 0) scale(1.05);
+  }
+
+  100% {
+    transform: translate3d(-6px, 10px, 0) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

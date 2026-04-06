@@ -54,14 +54,12 @@ export async function POST(req: Request) {
             });
           } catch (confirmErr) {
             // Confirmation email failed, but main email was sent - don't treat as error
-            // eslint-disable-next-line no-console
             console.warn('Confirmation email failed:', confirmErr);
           }
         }
       }
     } catch (mailErr) {
       emailError = String(mailErr);
-      // eslint-disable-next-line no-console
       console.error('Mail send failed:', mailErr);
     }
 
@@ -71,7 +69,6 @@ export async function POST(req: Request) {
       error: emailError || null 
     });
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error('API error:', err);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
