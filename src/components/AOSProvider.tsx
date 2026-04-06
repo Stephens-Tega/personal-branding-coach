@@ -11,7 +11,6 @@ export default function AOSProvider() {
     AOS.init({
       duration: mediaQuery.matches ? 0 : 920,
       delay: 0,
-      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
       once: true,
       mirror: false,
       offset: 72,

@@ -99,7 +99,7 @@ export default function WhoThisIsFor() {
                 <div className={numberBadgeClassName}>
                   <div
                     aria-hidden="true"
-                    className="absolute inset-[5px] rounded-[0.95rem] bg-linear-to-br from-brand-purple via-[#6d1887] to-[#2f1241] dark:from-brand-yellow/18 dark:via-brand-yellow/10 dark:to-brand-purple/35"
+                    className="absolute inset-1.25 rounded-[0.95rem] bg-linear-to-br from-brand-purple via-[#6d1887] to-[#2f1241] dark:from-brand-yellow/18 dark:via-brand-yellow/10 dark:to-brand-purple/35"
                   />
                   <div
                     aria-hidden="true"

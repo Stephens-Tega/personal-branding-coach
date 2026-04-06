@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import SocialLinks from "./SocialLinks";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -59,19 +60,24 @@ export default function Footer() {
             <h4 className="mb-3 text-sm font-semibold">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#clarity" className="hover:text-brand-purple hover:underline dark:hover:text-brand-yellow">
+                <Link href="/proof" className="hover:text-brand-purple hover:underline dark:hover:text-brand-yellow">
+                  Proof
+                </Link>
+              </li>
+              <li>
+                <Link href="/#clarity" className="hover:text-brand-purple hover:underline dark:hover:text-brand-yellow">
                   The Clarity Blueprint
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-brand-purple hover:underline dark:hover:text-brand-yellow">
+                <Link href="/#contact" className="hover:text-brand-purple hover:underline dark:hover:text-brand-yellow">
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#story" className="hover:text-brand-purple hover:underline dark:hover:text-brand-yellow">
+                <Link href="/#story" className="hover:text-brand-purple hover:underline dark:hover:text-brand-yellow">
                   My Story
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -1,12 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import WhatsAppIcon from "./WhatsAppIcon";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Header({ waNumber }: { waNumber: string }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const clarityHref = isHomePage ? "#clarity" : "/#clarity";
+  const workHref = isHomePage ? "#work" : "/#work";
+  const contactHref = isHomePage ? "#contact" : "/#contact";
 
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-200/80 bg-white/80 py-3 sm:py-4 backdrop-blur-md shadow-sm dark:border-white/10 dark:bg-zinc-950/80 dark:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
@@ -34,17 +40,24 @@ export default function Header({ waNumber }: { waNumber: string }) {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-3 text-sm font-medium md:flex">
           <a
-            href="#clarity"
+            href={clarityHref}
             className="px-2 py-1 text-zinc-700 transition hover:text-brand-purple hover:underline dark:text-zinc-300 dark:hover:text-brand-yellow"
           >
             The Clarity Blueprint
           </a>
 
           <a
-            href="#work"
+            href={workHref}
             className="px-2 py-1 text-zinc-700 transition hover:text-brand-purple hover:underline dark:text-zinc-300 dark:hover:text-brand-yellow"
           >
             Ways to Work with Me
+          </a>
+
+          <a
+            href="/proof"
+            className="px-2 py-1 text-zinc-700 transition hover:text-brand-purple hover:underline dark:text-zinc-300 dark:hover:text-brand-yellow"
+          >
+            Proof
           </a>
         </nav>
 
@@ -52,7 +65,7 @@ export default function Header({ waNumber }: { waNumber: string }) {
         <div className="flex shrink-0 items-center gap-2">
           {/* Message */}
           <a
-            href="#contact"
+            href={contactHref}
             aria-label="Get in touch"
             className="motion-button inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/70 p-2 text-zinc-700 transition hover:bg-zinc-100 dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:hover:bg-white/10"
           >
@@ -121,7 +134,7 @@ export default function Header({ waNumber }: { waNumber: string }) {
         >
           <nav className="flex flex-col gap-3 text-sm font-medium">
             <a
-              href="#clarity"
+              href={clarityHref}
               className="text-zinc-700 transition hover:text-brand-purple hover:underline dark:text-zinc-300 dark:hover:text-brand-yellow"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -129,11 +142,19 @@ export default function Header({ waNumber }: { waNumber: string }) {
             </a>
 
             <a
-              href="#work"
+              href={workHref}
               className="text-zinc-700 transition hover:text-brand-purple hover:underline dark:text-zinc-300 dark:hover:text-brand-yellow"
               onClick={() => setMobileMenuOpen(false)}
             >
               Ways to Work with Me
+            </a>
+
+            <a
+              href="/proof"
+              className="text-zinc-700 transition hover:text-brand-purple hover:underline dark:text-zinc-300 dark:hover:text-brand-yellow"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Proof
             </a>
           </nav>
 

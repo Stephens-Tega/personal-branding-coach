@@ -88,7 +88,7 @@ function Slider() {
   }, [images.length]);
 
   return (
-    <div className="relative h-[21rem] overflow-hidden bg-black/5 dark:bg-white/5 sm:h-80 md:h-96 lg:h-112">
+    <div className="relative h-84 overflow-hidden bg-black/5 dark:bg-white/5 sm:h-80 md:h-96 lg:h-112">
       {images.map((src, i) => (
         <div
           key={src}
@@ -100,7 +100,7 @@ function Slider() {
               alt={`Portrait slide ${i + 1}`}
               fill
               sizes="(max-width: 1024px) 100vw, 24rem"
-              className={`motion-image object-cover transition-transform duration-[1400ms] ease-out ${i === index ? "scale-100" : "scale-105"}`}
+              className={`motion-image object-cover transition-transform duration-1400 ease-out ${i === index ? "scale-100" : "scale-105"}`}
               priority={i === 0}
             />
           </div>
