@@ -2,7 +2,7 @@
 
 export default function WorkWithMe() {
   const cardClassName =
-    "motion-card rounded-2xl bg-white/80 p-8 shadow-lg transition hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_50px_rgba(0,0,0,0.28)]";
+    "motion-card flex h-full flex-col rounded-2xl bg-white/80 p-8 shadow-lg transition hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_50px_rgba(0,0,0,0.28)]";
 
   return (
     <section
@@ -10,7 +10,7 @@ export default function WorkWithMe() {
       className="w-full bg-brand-cream px-6 py-20 dark:bg-[#0f0b14]"
       data-aos="fade-up"
     >
-      <div className="mx-auto max-w-5xl">
+      <div className="landing-content-medium">
         <h2 className="mb-16 text-center text-4xl font-bold text-brand-purple dark:text-brand-yellow">
           WAYS TO WORK WITH ME
         </h2>
@@ -25,7 +25,7 @@ export default function WorkWithMe() {
             </p>
             <a
               href="#contact"
-              className="motion-button inline-block w-full rounded-lg bg-brand-purple py-3 text-center font-semibold text-white transition hover:bg-brand-purple/90"
+              className="motion-button mt-auto inline-block w-full rounded-lg bg-brand-purple py-3 text-center font-semibold text-white transition hover:bg-brand-purple/90"
             >
               Book Free Session
             </a>
@@ -44,7 +44,7 @@ export default function WorkWithMe() {
               href="https://wa.me/2348062501417?text=Hello%20I%20am%20interested%20in%20the%20BrandHer%20program"
               target="_blank"
               rel="noopener noreferrer"
-              className="motion-button inline-block w-full rounded-lg bg-brand-purple py-3 text-center font-semibold text-white transition hover:bg-brand-purple/90"
+              className="motion-button mt-auto inline-block w-full rounded-lg bg-brand-purple py-3 text-center font-semibold text-white transition hover:bg-brand-purple/90"
             >
               Learn More
             </a>
@@ -62,7 +62,7 @@ export default function WorkWithMe() {
               href="https://chat.whatsapp.com/JuvcuZjNA5LGuldgI98u1w?mode=gi_t"
               target="_blank"
               rel="noopener noreferrer"
-              className="motion-button inline-block min-h-11 w-full rounded-lg bg-brand-purple py-3 text-center font-semibold text-white transition hover:bg-brand-purple/90 md:py-4"
+              className="motion-button mt-auto inline-block min-h-11 w-full rounded-lg bg-brand-purple py-3 text-center font-semibold text-white transition hover:bg-brand-purple/90 md:py-4"
             >
               Join Community
             </a>

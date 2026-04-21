@@ -1,33 +1,28 @@
-SMTP setup and testing
-======================
+Email setup and testing
+=======================
 
-Place SMTP credentials in a local `.env.local` file at the project root (do NOT commit it).
+This project now sends contact emails through Resend instead of direct SMTP.
 
-Required vars (example values shown in `.env.example`):
+Add the following values to your local `.env.local` file:
 
-- `SMTP_HOST` – your SMTP host (e.g., `smtp.sendgrid.net`).
-- `SMTP_PORT` – port (commonly `587`).
-- `SMTP_USER` – SMTP user (SendGrid uses `apikey` as username).
-- `SMTP_PASS` – SMTP password or API key.
-- `SMTP_SECURE` – `true` for TLS on port 465, otherwise `false`.
-- `SMTP_FROM` – optional `From` address (e.g., `"Personal Branding Coach <no-reply@example.com>"`).
+- `RESEND_API_KEY` - your Resend API key, which starts with `re_`
+- `RESEND_FROM` - optional sender address. For testing, you can use `"Personal Branding Coach <onboarding@resend.dev>"`. For production, switch this to a verified domain in Resend.
+- `TEST_EMAIL_TO` - optional address used by the local test script. If omitted, the script sends to `delivered@resend.dev`.
 
-Quick test (local):
+Quick setup:
 
-1. Install dependencies (if not already):
+1. Create a Resend API key.
+2. Add `RESEND_API_KEY` to `.env.local`.
+3. For production sending, verify your sending domain in Resend and set `RESEND_FROM` to that address.
+4. Restart the dev server after changing env vars.
 
-```bash
-npm install
-```
-
-2. Create `.env.local` in the project root and add your SMTP vars (copy from `.env.example`).
-
-3. Run the test email script which will try your SMTP settings; if absent it will use an Ethereal test account and print a preview URL:
+Quick test:
 
 ```bash
 npm run test-email
 ```
 
 Notes:
-- If you use the Ethereal fallback the message will not be delivered to real inboxes — it's for local verification only and will show a preview URL in the console.
-- After adding real SMTP credentials, restart the dev server so env vars are loaded.
+- The contact API now ignores the old `SMTP_*` variables.
+- If you have not verified a domain yet, keep `RESEND_FROM` on `onboarding@resend.dev` for initial testing.
+- Once your domain is verified, update the `from` address so your contact emails come from your own domain.

@@ -1,83 +1,76 @@
 #!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-require-imports */
-/*
-  Test script to send a sample email.
-  - If SMTP env vars are present it will use them.
-  - Otherwise it creates a test Ethereal account and prints a preview URL.
-*/
-const fs = require('fs');
-const path = require('path');
-const nodemailer = require('nodemailer');
 
-// Load .env.local if present into process.env
+const fs = require("fs");
+const path = require("path");
+const { Resend } = require("resend");
+
 try {
-  const envPath = path.resolve(process.cwd(), '.env.local');
+  const envPath = path.resolve(process.cwd(), ".env.local");
   if (fs.existsSync(envPath)) {
-    const raw = fs.readFileSync(envPath, 'utf8');
+    const raw = fs.readFileSync(envPath, "utf8");
     raw.split(/\r?\n/).forEach((line) => {
-      line = line.trim();
-      if (!line || line.startsWith('#')) return;
-      const eq = line.indexOf('=');
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) return;
+
+      const eq = trimmed.indexOf("=");
       if (eq === -1) return;
-      const key = line.slice(0, eq).trim();
-      let val = line.slice(eq + 1).trim();
-      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-        val = val.slice(1, -1);
+
+      const key = trimmed.slice(0, eq).trim();
+      let value = trimmed.slice(eq + 1).trim();
+
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
       }
-      if (!process.env[key]) process.env[key] = val;
+
+      if (!process.env[key]) {
+        process.env[key] = value;
+      }
     });
   }
 } catch {
-  // ignore
+  // Ignore env-loading issues in the helper script.
 }
 
 async function main() {
-  const host = process.env.SMTP_HOST;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const port = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : undefined;
-  const secure = process.env.SMTP_SECURE === 'true';
+  const apiKey = process.env.RESEND_API_KEY;
 
-  let transporter;
-
-  if (host && user && pass) {
-    console.log('Using provided SMTP settings...');
-    transporter = nodemailer.createTransport({
-      host,
-      port: port || 587,
-      secure: !!secure,
-      auth: { user, pass },
-    });
-  } else {
-    console.log('No SMTP settings detected; creating Ethereal test account...');
-    const testAccount = await nodemailer.createTestAccount();
-    transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      auth: { user: testAccount.user, pass: testAccount.pass },
-    });
+  if (!apiKey) {
+    throw new Error(
+      "Missing RESEND_API_KEY. Add it to .env.local before running this test.",
+    );
   }
 
-  const from = process.env.SMTP_FROM || 'no-reply@example.com';
-  const to = process.env.TEST_EMAIL_TO || 'iamujustevens@gmail.com';
+  const resend = new Resend(apiKey);
+  const from =
+    process.env.RESEND_FROM ||
+    "Personal Branding Coach <onboarding@resend.dev>";
+  const to = process.env.TEST_EMAIL_TO || "delivered@resend.dev";
 
-  const info = await transporter.sendMail({
+  const { data, error } = await resend.emails.send({
     from,
     to,
-    subject: 'Test email from Personal Branding Coach site',
-    text: 'This is a test email to verify SMTP settings.',
-    html: '<p>This is a <strong>test</strong> email to verify SMTP settings.</p>',
+    subject: "Test email from Personal Branding Coach site",
+    text: "This is a test email sent through Resend.",
+    html: "<p>This is a <strong>test</strong> email sent through Resend.</p>",
   });
 
-  console.log('Message sent.');
-  if (nodemailer.getTestMessageUrl) {
-    const preview = nodemailer.getTestMessageUrl(info);
-    if (preview) console.log('Preview URL:', preview);
+  if (error) {
+    throw new Error(
+      typeof error.message === "string"
+        ? error.message
+        : JSON.stringify(error),
+    );
   }
-  console.log('Info:', info && info.messageId);
+
+  console.log("Message sent via Resend.");
+  console.log("Email ID:", data?.id || "(missing id)");
 }
 
-main().catch((err) => {
-  console.error('Error sending test email:', err);
+main().catch((error) => {
+  console.error("Error sending test email:", error);
   process.exit(1);
 });

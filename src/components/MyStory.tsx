@@ -13,7 +13,7 @@ export default function MyStory() {
         className="absolute inset-0 bg-white/20 dark:bg-zinc-950/60"
       />
 
-      <div className="relative mx-auto max-w-5xl">
+      <div className="landing-content-medium relative">
         <div className="motion-card rounded-3xl border border-white/60 bg-white/80 p-8 shadow-[0_24px_80px_rgba(17,12,24,0.18)] backdrop-blur-sm dark:border-white/10 dark:bg-[rgba(18,14,26,0.84)] dark:shadow-[0_24px_90px_rgba(0,0,0,0.45)]">
           <h2 className="mb-12 text-center text-4xl font-bold text-brand-purple dark:text-brand-yellow">
             MY STORY

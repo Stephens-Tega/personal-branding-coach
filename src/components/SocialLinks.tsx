@@ -8,6 +8,12 @@ interface SocialLink {
   icon: "linkedin" | "facebook" | "youtube" | "tiktok";
 }
 
+interface SocialLinksProps {
+  links: SocialLink[];
+  horizontal?: boolean;
+  singleLine?: boolean;
+}
+
 const iconMap: Record<SocialLink["icon"], ReactNode> = {
   linkedin: (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -31,20 +37,34 @@ const iconMap: Record<SocialLink["icon"], ReactNode> = {
   ),
 };
 
-export default function SocialLinks({ links, horizontal }: { links: SocialLink[]; horizontal?: boolean }) {
+export default function SocialLinks({
+  links,
+  horizontal,
+  singleLine = false,
+}: SocialLinksProps) {
   if (horizontal) {
+    const containerClassName = singleLine
+      ? "flex flex-nowrap items-center gap-3 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      : "flex flex-wrap items-center gap-3 sm:gap-4";
+    const linkClassName = singleLine
+      ? "motion-button inline-flex min-h-11 shrink-0 items-center gap-2.5 rounded-full border border-brand-purple/12 bg-white/88 px-3.5 py-2 text-sm font-medium text-zinc-700 shadow-sm transition hover:border-brand-purple/22 hover:bg-white hover:text-brand-purple focus:outline-none focus:ring-2 focus:ring-brand-purple/20 dark:border-white/10 dark:bg-white/6 dark:text-zinc-100 dark:hover:border-brand-yellow/20 dark:hover:bg-white/10 dark:hover:text-brand-yellow dark:focus:ring-brand-yellow/25"
+      : "motion-button flex items-center gap-2 text-sm text-zinc-700 transition hover:text-brand-purple dark:text-zinc-300 dark:hover:text-brand-yellow";
+    const iconWrapperClassName = singleLine
+      ? "flex h-8 w-8 items-center justify-center rounded-full bg-brand-purple/8 text-brand-purple dark:bg-brand-yellow/10 dark:text-brand-yellow"
+      : "text-brand-purple dark:text-brand-yellow";
+
     return (
-      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+      <div className={containerClassName}>
         {links.map((link) => (
           <a
             key={link.name}
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="motion-button flex items-center gap-2 text-sm text-zinc-700 transition hover:text-brand-purple dark:text-zinc-300 dark:hover:text-brand-yellow"
+            className={linkClassName}
           >
-            <span className="text-brand-purple dark:text-brand-yellow">{iconMap[link.icon]}</span>
-            <span className="hidden sm:inline">{link.name}</span>
+            <span className={iconWrapperClassName}>{iconMap[link.icon]}</span>
+            <span>{link.name}</span>
           </a>
         ))}
       </div>

@@ -24,6 +24,26 @@ export default function ProofPage() {
         <Header waNumber={waNumber} />
 
         <main className="flex-1 bg-zinc-50 dark:bg-[#0b0810]">
+          <div className="landing-content-wide px-5 pt-6 sm:px-6 sm:pt-8">
+            <Link
+              href="/"
+              className="motion-button inline-flex min-h-11 items-center gap-2 rounded-full border border-brand-purple/12 bg-white/80 px-4 py-2 text-sm font-semibold text-brand-purple shadow-sm hover:bg-white dark:border-brand-yellow/15 dark:bg-white/5 dark:text-brand-yellow dark:hover:bg-white/10"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-4 w-4"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              Back to Home
+            </Link>
+          </div>
+
           <section className="relative overflow-hidden px-5 py-16 sm:px-6 sm:py-20">
             <div
               aria-hidden="true"
@@ -34,12 +54,12 @@ export default function ProofPage() {
               className="gradient-orb gradient-orb-reverse pointer-events-none absolute right-0 top-24 h-64 w-64 rounded-full bg-brand-yellow/12 blur-3xl dark:bg-brand-yellow/10"
             />
 
-            <div className="relative mx-auto max-w-6xl">
-              <span className="mb-5 inline-flex rounded-full border border-brand-purple/12 bg-white/80 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-brand-purple shadow-sm dark:border-brand-yellow/15 dark:bg-white/5 dark:text-brand-yellow">
+            <div className="landing-content-wide relative">
+              <span className="mb-5 inline-flex rounded-full border border-brand-purple/12 bg-white/80 px-5 py-2.5 text-sm font-semibold tracking-[0.24em] text-brand-purple shadow-sm dark:border-brand-yellow/15 dark:bg-white/5 dark:text-brand-yellow">
                 PROOF
               </span>
 
-              <h1 className="max-w-4xl text-4xl font-bold leading-tight text-brand-purple sm:text-5xl dark:text-white">
+              <h1 className="max-w-4xl text-5xl font-bold leading-tight text-brand-purple sm:text-6xl dark:text-white">
                 Proof of training, credibility, and the transformation stories
                 behind the work.
               </h1>
@@ -61,7 +81,7 @@ export default function ProofPage() {
             </div>
           </section>
 
-          <div className="mx-auto max-w-6xl px-5 pb-20 sm:px-6">
+          <div className="landing-content-wide px-5 pb-20 sm:px-6">
             <ProofGallery
               sectionId="credentials"
               eyebrow="CREDENTIALS"

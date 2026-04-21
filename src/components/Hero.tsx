@@ -22,12 +22,12 @@ export default function Hero() {
         className="gradient-orb gradient-orb-reverse pointer-events-none absolute right-0 bottom-0 h-72 w-72 rounded-full bg-brand-yellow/18 blur-3xl dark:bg-brand-yellow/10"
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="landing-content-wide relative z-10">
         <div className="mb-16 grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <h1 className="mb-6 max-w-2xl bg-linear-to-r from-brand-purple to-brand-yellow bg-clip-text text-4xl leading-tight font-bold text-transparent sm:text-5xl lg:text-6xl">
+            <h1 className="mb-6 max-w-2xl text-4xl leading-tight font-bold text-[#221129] sm:text-5xl dark:text-white lg:text-6xl">
               You can look successful and still feel{" "}
-              <span className="bg-linear-to-r from-brand-purple to-brand-yellow bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#381149] via-brand-purple to-[#9B5E00] bg-clip-text text-transparent dark:from-brand-yellow dark:via-[#ffe38a] dark:to-[#f7c83a]">
                 lost
               </span>
               .

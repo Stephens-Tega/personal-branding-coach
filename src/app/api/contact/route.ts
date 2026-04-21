@@ -1,75 +1,118 @@
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextResponse } from "next/server";
+import { getResendClient } from "@/lib/resend";
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function getPublicSendErrorMessage(error: unknown) {
+  const message =
+    typeof error === "object" && error && "message" in error
+      ? String(error.message)
+      : "";
+
+  if (
+    message.toLowerCase().includes("api key") ||
+    message.toLowerCase().includes("unauthorized") ||
+    message.toLowerCase().includes("forbidden")
+  ) {
+    return "Email delivery is not configured correctly right now. Please contact me on WhatsApp while this is being fixed.";
+  }
+
+  if (message.toLowerCase().includes("rate limit")) {
+    return "Email delivery is temporarily busy right now. Please try again shortly or contact me on WhatsApp.";
+  }
+
+  return "Your message could not be delivered by email right now. Please try again later or contact me on WhatsApp.";
+}
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { name, email, message } = body;
-    
+
     if (!name || !email || !message) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    // Attempt to send email if SMTP is configured via environment variables
-    const RECIPIENT = 'iamujustevens@gmail.com';
-    let emailSent = false;
-    let emailError: string | null = null;
+    const resend = getResendClient();
+    const recipient = "iamujustevens@gmail.com";
+    const from =
+      process.env.RESEND_FROM ||
+      "Personal Branding Coach <onboarding@resend.dev>";
+
+    if (!resend) {
+      return NextResponse.json(
+        {
+          emailed: false,
+          confirmationSent: false,
+          error:
+            "Email delivery is not configured right now. Add RESEND_API_KEY to continue, or contact me on WhatsApp while this is being fixed.",
+        },
+        { status: 503 },
+      );
+    }
+
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message).replace(/\n/g, "<br/>");
+
+    const { data: ownerData, error: ownerError } = await resend.emails.send({
+      from,
+      to: recipient,
+      replyTo: email,
+      subject: `Website contact: ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      html: `<p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> ${safeEmail}</p><hr/><p>${safeMessage}</p>`,
+    });
+
+    if (ownerError || !ownerData?.id) {
+      console.error("Resend owner email failed:", ownerError);
+
+      return NextResponse.json(
+        {
+          emailed: false,
+          confirmationSent: false,
+          error: getPublicSendErrorMessage(ownerError),
+        },
+        { status: 502 },
+      );
+    }
+
+    let confirmationSent = false;
 
     try {
-      const host = process.env.SMTP_HOST;
-      const user = process.env.SMTP_USER;
-      const pass = process.env.SMTP_PASS;
-      const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
-      const secure = process.env.SMTP_SECURE === 'true';
-
-      if (host && user && pass) {
-        const transporter = nodemailer.createTransport({
-          host,
-          port,
-          secure,
-          auth: { user, pass },
+      const { data: confirmationData, error: confirmationError } =
+        await resend.emails.send({
+          from,
+          to: email,
+          subject: "We received your message",
+          text: `Hi ${name},\n\nThank you for reaching out! I've received your message and will get back to you as soon as possible.\n\nBest regards,\nUju Ruth Stevens\nWomen's Identity & Clarity Coach`,
+          html: `<p>Hi ${safeName},</p><p>Thank you for reaching out! I've received your message and will get back to you as soon as possible.</p><p>Best regards,<br/><strong>Uju Ruth Stevens</strong><br/>Women's Identity & Clarity Coach</p>`,
         });
 
-        const mailResult = await transporter.sendMail({
-          from: process.env.SMTP_FROM || user,
-          replyTo: email,
-          to: RECIPIENT,
-          subject: `Website contact: ${name}`,
-          text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-          html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><hr/><p>${message.replace(/\n/g, '<br/>')}</p>`,
-        });
+      confirmationSent = !confirmationError && !!confirmationData?.id;
 
-        // Check if email was successfully sent (messageId indicates success)
-        if (mailResult && mailResult.messageId) {
-          emailSent = true;
-
-          // Send confirmation email to the user
-          try {
-            await transporter.sendMail({
-              from: process.env.SMTP_FROM || user,
-              to: email,
-              subject: 'We received your message',
-              text: `Hi ${name},\n\nThank you for reaching out! I've received your message and will get back to you as soon as possible.\n\nBest regards,\nUju Ruth Stevens\nWomen's Identity & Clarity Coach`,
-              html: `<p>Hi ${name},</p><p>Thank you for reaching out! I've received your message and will get back to you as soon as possible.</p><p>Best regards,<br/><strong>Uju Ruth Stevens</strong><br/>Women's Identity & Clarity Coach</p>`,
-            });
-          } catch (confirmErr) {
-            // Confirmation email failed, but main email was sent - don't treat as error
-            console.warn('Confirmation email failed:', confirmErr);
-          }
-        }
+      if (confirmationError) {
+        console.warn("Resend confirmation email failed:", confirmationError);
       }
-    } catch (mailErr) {
-      emailError = String(mailErr);
-      console.error('Mail send failed:', mailErr);
+    } catch (confirmationError) {
+      console.warn("Resend confirmation email failed:", confirmationError);
     }
 
-    return NextResponse.json({ 
-      ok: true, 
-      emailed: emailSent, 
-      error: emailError || null 
+    return NextResponse.json({
+      ok: true,
+      emailed: true,
+      confirmationSent,
+      error: null,
     });
-  } catch (err) {
-    console.error('API error:', err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  } catch (error) {
+    console.error("API error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

@@ -53,29 +53,32 @@ export default function ProofGallery({
     ? "mb-16"
     : "";
   const gridClassName = isCredential
-    ? "grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-    : "grid gap-6 md:grid-cols-2";
+    ? "grid justify-items-center gap-5 sm:gap-6 md:justify-items-start md:grid-cols-2 xl:grid-cols-3"
+    : "grid justify-items-center gap-5 sm:gap-6 md:justify-items-start md:grid-cols-2";
   const sectionBadgeClassName = isCredential
     ? "border-brand-purple/12 bg-white/75 text-brand-purple dark:border-brand-yellow/15 dark:bg-white/5 dark:text-brand-yellow"
     : "border-brand-yellow/22 bg-brand-yellow/10 text-brand-yellow dark:border-brand-yellow/22 dark:bg-brand-yellow/10 dark:text-brand-yellow";
   const imageFrameClassName = isCredential
     ? "bg-white dark:bg-[#18131f]"
     : "bg-white dark:bg-[#16111d]";
+  const cardClassName = isCredential
+    ? "motion-card w-full max-w-[17.5rem] overflow-hidden rounded-[1.75rem] border border-brand-purple/10 bg-white/80 p-2.5 shadow-lg transition hover:shadow-xl sm:max-w-[18.75rem] dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_50px_rgba(0,0,0,0.28)]"
+    : "motion-card w-full max-w-[18.5rem] overflow-hidden rounded-[1.75rem] border border-brand-purple/10 bg-white/80 p-2.5 shadow-lg transition hover:shadow-xl sm:max-w-[20rem] dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_50px_rgba(0,0,0,0.28)]";
   const openButtonText = isCredential ? "Open credential" : "Open poster";
 
   return (
     <>
       <section id={sectionId} className={sectionClassName}>
-        <div className="mb-10 flex flex-col items-center text-center">
+        <div className="mb-10 flex flex-col items-start text-left">
           <span
-            className={`mb-4 inline-flex rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.24em] shadow-sm ${sectionBadgeClassName}`}
+            className={`mb-4 inline-flex rounded-full border px-5 py-2.5 text-sm font-semibold tracking-[0.24em] shadow-sm ${sectionBadgeClassName}`}
           >
             {eyebrow}
           </span>
-          <h2 className="max-w-3xl text-3xl font-bold leading-tight text-brand-purple sm:text-4xl dark:text-white">
+          <h2 className="max-w-3xl text-4xl font-bold leading-tight text-brand-purple sm:text-5xl dark:text-white">
             {title}
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-zinc-600 sm:text-lg dark:text-zinc-300">
+          <p className="mt-5 max-w-3xl text-base leading-relaxed text-zinc-600 sm:text-lg dark:text-zinc-300">
             {description}
           </p>
         </div>
@@ -86,7 +89,7 @@ export default function ProofGallery({
               key={item.id}
               data-aos="fade-up"
               data-aos-delay={index * 70}
-              className="motion-card overflow-hidden rounded-[1.75rem] border border-brand-purple/10 bg-white/80 p-3 shadow-lg transition hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_50px_rgba(0,0,0,0.28)]"
+              className={cardClassName}
             >
               <div className="mb-3 flex items-center justify-between gap-3 px-1 pt-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-purple/70 dark:text-brand-yellow/80">
@@ -117,7 +120,7 @@ export default function ProofGallery({
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">
                   {item.subtitle}
                 </p>
-                <h3 className="text-xl font-semibold leading-snug text-brand-purple dark:text-white">
+                <h3 className="text-lg font-semibold leading-snug text-brand-purple dark:text-white">
                   {item.title}
                 </h3>
                 {item.meta && (
@@ -145,7 +148,7 @@ export default function ProofGallery({
 
       {activeItem && (
         <div
-          className="fixed inset-0 z-[90] bg-black/70 p-4 backdrop-blur-sm sm:p-6"
+          className="fixed inset-0 z-90 bg-black/70 p-4 backdrop-blur-sm sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-label={activeItem.title}

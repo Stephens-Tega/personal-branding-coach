@@ -8,6 +8,7 @@ export default function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<{
@@ -15,7 +16,9 @@ export default function ContactForm() {
     email?: string;
     message?: string;
   }>({});
-  const [emailStatus, setEmailStatus] = useState<null | { emailed: boolean; error?: string }>(null);
+  const [emailStatus, setEmailStatus] = useState<
+    null | { emailed: boolean; confirmationSent?: boolean; error?: string | null }
+  >(null);
   const successRef = useRef<HTMLDivElement>(null);
 
   const inputBaseClasses =
@@ -78,8 +81,10 @@ export default function ContactForm() {
       if (!res.ok) throw new Error(data?.error || "Submit failed");
 
       setSubmitted(true);
+      setSubmittedEmail(email);
       setEmailStatus({
         emailed: !!data.emailed,
+        confirmationSent: !!data.confirmationSent,
         error: data?.error || data?.errorMessage || null,
       });
       setName("");
@@ -87,11 +92,15 @@ export default function ContactForm() {
       setMessage("");
       setErrors({});
       setTimeout(() => setSubmitted(false), 8000);
-    } catch {
+    } catch (error) {
       setSubmitted(true);
       setEmailStatus({
         emailed: false,
-        error: "Failed to submit. Please try again.",
+        confirmationSent: false,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to submit. Please try again.",
       });
       setTimeout(() => setSubmitted(false), 8000);
     } finally {
@@ -105,7 +114,7 @@ export default function ContactForm() {
       className="w-full bg-zinc-50 px-6 py-20 dark:bg-[#0c0911]"
       data-aos="fade-up"
     >
-      <div className="mx-auto max-w-3xl">
+      <div className="landing-content-narrow">
         <div className="motion-card rounded-3xl border border-zinc-200 bg-white p-8 shadow-xl dark:border-white/10 dark:bg-[rgba(18,14,26,0.86)] dark:shadow-[0_24px_90px_rgba(0,0,0,0.45)]">
           <div className="mb-6">
             <h3 className="text-2xl font-bold text-brand-purple dark:text-brand-yellow">
@@ -193,11 +202,13 @@ export default function ContactForm() {
               </button>
             </div>
 
-            <div className="mt-4">
-              <div className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
+            <div className="mt-5 rounded-2xl border border-zinc-200/80 bg-zinc-50/80 p-4 dark:border-white/10 dark:bg-white/5">
+              <div className="mb-3 text-sm font-medium text-zinc-600 dark:text-zinc-300">
                 Or connect with me on social media:
               </div>
               <SocialLinks
+                horizontal
+                singleLine
                 links={[
                   {
                     name: "LinkedIn",
@@ -233,9 +244,18 @@ export default function ContactForm() {
                 <span className="text-lg font-bold">OK</span>
                 <div>
                   <p className="text-base font-bold">Message sent successfully!</p>
-                  <p className="mt-2 text-xs">
-                    A confirmation email has been sent to <strong>{email}</strong>. I&apos;ll get back to you soon.
-                  </p>
+                  {emailStatus.confirmationSent ? (
+                    <p className="mt-2 text-xs">
+                      A confirmation email has been sent to{" "}
+                      <strong>{submittedEmail}</strong>. I&apos;ll get back to you soon.
+                    </p>
+                  ) : (
+                    <p className="mt-2 text-xs">
+                      Your message reached me successfully. If you don&apos;t
+                      receive a confirmation email, that&apos;s okay. I&apos;ll
+                      still reply as soon as I can.
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -251,7 +271,8 @@ export default function ContactForm() {
                 <div>
                   <p className="text-base font-bold">Email delivery failed</p>
                   <p className="mt-2 text-xs">
-                    Please try again or contact me directly on WhatsApp for immediate assistance.
+                    {emailStatus.error ||
+                      "Please try again or contact me directly on WhatsApp for immediate assistance."}
                   </p>
                 </div>
               </div>

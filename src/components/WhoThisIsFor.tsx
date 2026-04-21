@@ -54,7 +54,7 @@ export default function WhoThisIsFor() {
         className="gradient-orb gradient-orb-reverse pointer-events-none absolute right-0 bottom-0 h-64 w-64 rounded-full bg-brand-yellow/12 blur-3xl dark:bg-brand-yellow/10"
       />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="landing-content-medium relative">
         <div className="mb-14 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end">
           <div data-aos="fade-right">
             <span className="mb-5 inline-flex rounded-full border border-brand-purple/12 bg-white/70 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-brand-purple shadow-sm dark:border-brand-yellow/15 dark:bg-white/5 dark:text-brand-yellow">

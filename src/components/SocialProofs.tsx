@@ -10,7 +10,7 @@ export default function SocialProofs() {
       className="w-full bg-white px-5 py-16 sm:px-6 sm:py-20 dark:bg-[#0d0912]"
       data-aos="fade-up"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="landing-content-wide">
         <div className="mb-12 flex flex-col items-center text-center">
           <span className="mb-4 inline-flex rounded-full border border-brand-purple/12 bg-brand-cream/70 px-4 py-2 text-xs font-semibold tracking-[0.24em] text-brand-purple shadow-sm dark:border-brand-yellow/15 dark:bg-white/5 dark:text-brand-yellow">
             PROOF &amp; CREDENTIALS
@@ -38,7 +38,7 @@ export default function SocialProofs() {
                 href={href}
                 data-aos="fade-up"
                 data-aos-delay={index * 70}
-                className="motion-card group overflow-hidden rounded-[1.5rem] border border-brand-purple/10 bg-brand-cream/70 p-3 shadow-lg transition hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_50px_rgba(0,0,0,0.28)]"
+                className="motion-card group overflow-hidden rounded-3xl border border-brand-purple/10 bg-brand-cream/70 p-3 shadow-lg transition hover:shadow-xl dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_50px_rgba(0,0,0,0.28)]"
               >
                 <div className="mb-3 flex items-center justify-between gap-3 px-1 pt-1">
                   <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-brand-purple/70 dark:text-brand-yellow/80">
